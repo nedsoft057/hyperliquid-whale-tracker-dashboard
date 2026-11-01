@@ -81,7 +81,8 @@ module.exports = async (req, res) => {
         coin: lead.coin, side: lead.side, positionSize: lead.size,
         entryPrice: lead.entryPrice, markPrice: lead.markPrice, liqPrice: lead.liqPrice, pnl: lead.pnl,
         chain: 'HL',
-        positions,
+        positionCount: positions.length,
+        positions: positions.slice(0, 12),
       };
     }).filter(Boolean)
       .sort((a, b) => b.positionSize - a.positionSize)
