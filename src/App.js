@@ -6,7 +6,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import {
-  fetchWhales, fetchCandles, fetchWalletBalances, shortAddress, formatUSD, formatPnL
+  fetchWhales, fetchCandles, fetchWalletBalances, shortAddress, formatPrice, formatPnL
 } from './api';
 
 // ── Avatar helpers ────────────────────────────────────────────────────────────
@@ -449,9 +449,9 @@ function RiskMatrix({ whales, loading }) {
                     </td>
                     <td className="mono" style={{color:'var(--text-2)',fontWeight:600}}>{w.coin}</td>
                     <td><span className={`tag tag-${w.side==='long'?'long':'short'}`}>{w.side.toUpperCase()}</span></td>
-                    <td className="mono" style={{color:'var(--text-1)'}}>{formatUSD(w.markPrice)}</td>
+                    <td className="mono" style={{color:'var(--text-1)'}}>{formatPrice(w.markPrice)}</td>
                     <td className="mono" style={{color: gap?.critical?'var(--red)':gap?.danger?'var(--amber)':'var(--text-3)'}}>
-                      {formatUSD(w.liqPrice)}
+                      {formatPrice(w.liqPrice)}
                     </td>
                     <td className="mono" style={{color:'var(--text-1)'}}>{formatSizeShort(w.positionSize)}</td>
                     <td>
@@ -575,7 +575,7 @@ function WhaleTable({ whales, selectedAddr, onSelect, loading }) {
                         <div className="bar-track"><div className="bar-fill" style={{width:`${pct}%`}} /></div>
                       </div>
                     </td>
-                    <td className="mono" style={{color:'var(--text-2)'}}>{formatUSD(w.entryPrice)}</td>
+                    <td className="mono" style={{color:'var(--text-2)'}}>{formatPrice(w.entryPrice)}</td>
                     <td className={`mono ${w.pnl>=0?'up':'down'}`}>{formatPnL(w.pnl)}</td>
                     <td><span className={`tag tag-${w.side==='long'?'long':'short'}`}>{w.side.toUpperCase()}</span></td>
 
@@ -778,7 +778,7 @@ function WalletDeepDive({ address, whales, onClose }) {
         </div>
         <div className="dive-stat">
           <div className="dive-stat-label">Entry Price</div>
-          <div className="dive-stat-value mono">{formatUSD(whale.entryPrice)}</div>
+          <div className="dive-stat-value mono">{formatPrice(whale.entryPrice)}</div>
         </div>
         <div className="dive-stat">
           <div className="dive-stat-label">Liq Distance</div>
@@ -807,8 +807,8 @@ function WalletDeepDive({ address, whales, onClose }) {
               style={{width:`${Math.min(100,gap.pct)}%`,height:'100%',borderRadius:3}} />
           </div>
           <div style={{display:'flex',justifyContent:'space-between',fontSize:'9px',fontFamily:'var(--font-mono)',color:'var(--text-4)',marginTop:4}}>
-            <span>Liq: {formatUSD(whale.liqPrice)}</span>
-            <span>Mark: {formatUSD(whale.markPrice)}</span>
+            <span>Liq: {formatPrice(whale.liqPrice)}</span>
+            <span>Mark: {formatPrice(whale.markPrice)}</span>
           </div>
         </div>
       )}

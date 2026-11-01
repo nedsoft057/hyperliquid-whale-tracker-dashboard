@@ -8,8 +8,8 @@
 const HL = 'https://api.hyperliquid.xyz/info';
 const LEADERBOARD = 'https://stats-data.hyperliquid.xyz/Mainnet/leaderboard';
 
-const CANDIDATES = 40;   // accounts checked for open positions
-const WHALES = 15;       // shown in the table
+const CANDIDATES = 100;   // accounts checked for open positions
+const WHALES = 20;       // shown in the table
 const FEED_WALLETS = 12; // wallets whose fills make up the feed
 const MIN_FILL_USD = 25000;
 
@@ -51,7 +51,7 @@ module.exports = async (req, res) => {
       .sort((a, b) => parseFloat(b.accountValue) - parseFloat(a.accountValue))
       .slice(0, CANDIDATES);
 
-    const states = await pool(top, 8, row => info({ type: 'clearinghouseState', user: row.ethAddress }));
+    const states = await pool(top, 12, row => info({ type: 'clearinghouseState', user: row.ethAddress }));
 
     const whales = top.map((row, i) => {
       const st = states[i];

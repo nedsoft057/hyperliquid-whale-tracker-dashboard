@@ -53,6 +53,14 @@ export function formatUSD(n) {
   return `$${Number(n).toFixed(2)}`;
 }
 
+// Prices: full precision that scales with size (BTC 77,570 · ETH 2,255.3 · PEPE 0.000012)
+export function formatPrice(n) {
+  const v = Number(n);
+  if (!v) return '—';
+  const d = v >= 1000 ? 0 : v >= 1 ? 2 : v >= 0.01 ? 4 : 6;
+  return `$${v.toLocaleString(undefined, { minimumFractionDigits: d, maximumFractionDigits: d })}`;
+}
+
 export function formatPnL(n) {
   const abs = Math.abs(n);
   const sign = n >= 0 ? '+' : '-';
